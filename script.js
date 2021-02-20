@@ -25,7 +25,8 @@ theEqual.forEach(val => {
 })
 
 const calculator = {
-    currentNumber: 0,
+    currentNumber: '',
+    previousNumber: '',
     
     operation() {},
     delete() {},
