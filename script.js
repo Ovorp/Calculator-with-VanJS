@@ -9,12 +9,14 @@ const calculator = {
     previousNumber: ' ',
     
     numberToDisplay(val) {
-        this.currentNumber = val.innerText;
+        this.currentNumber += val.innerText.toString();
         this.display();
         console.log(this.currentNumber)
     },
     operation() {},
-    delete() {},
+    delete() {
+        this.currentNumber = ' ';
+    },
     display() {
         let bottomOutput = document.querySelector('.bottom-output');
         let topOutput = document.querySelector('.top-output')
