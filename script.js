@@ -13,7 +13,9 @@ const calculator = {
         this.display();
         console.log(this.currentNumber)
     },
-    operation() {},
+    operation(val) {
+        console.log(val)
+    },
     delete() {
         this.currentNumber = ' ';
     },
@@ -33,7 +35,9 @@ theNums.forEach(val => {
 })
 
 theOps.forEach(val => {
-    val.addEventListener('click', () => console.log(val))
+    val.addEventListener('click', () => {
+        calculator.operation(val);
+    })
 })
 
 theAc.forEach(val => {
@@ -47,6 +51,3 @@ theDel.forEach(val => {
 theEqual.forEach(val => {
     val.addEventListener('click', () => console.log(val))
 })
-
-
-
