@@ -4,6 +4,8 @@ const theAc = document.querySelectorAll('[data-ac]')
 const theDel = document.querySelectorAll('[data-del]')
 const theEqual = document.querySelectorAll('[data-equal]')
 
+//calc object
+
 const calculator = {
     currentNumber: ' ',
     previousNumber: ' ',
@@ -27,6 +29,8 @@ const calculator = {
         bottomOutput.innerText = this.currentNumber;
     },
 };
+
+//Event Listener
 
 theNums.forEach(val => {
     val.addEventListener('click', () => {
