@@ -7,28 +7,46 @@ const theEqual = document.querySelectorAll('[data-equal]');
 //calc object
 
 const calculator = {
-  currentNumber: ' test',
-  previousNumber: 'test ',
+  currentNumber: '',
+  previousNumber: '',
 
   numberToDisplay(val) {
     this.currentNumber += val.innerText.toString();
+    this.previousNumber = parseFloat(this.currentNumber);
     this.display();
   },
   operation(val) {
     let ops = val.innerText;
-    console.log(this.currentNumber, this.previousNumber);
     switch (ops) {
       case '+':
-        console.log('this is the plus');
+        this.previousNumber += parseFloat(this.currentNumber);
+        this.currentNumber = '';
+        this.display();
         break;
       case '-':
-        console.log('this is the minus');
+        this.previousNumber -= parseFloat(this.currentNumber);
+        this.currentNumber = '';
+        this.display();
         break;
       case '/':
-        console.log('this is the division');
+        if (this.previousNumber === '') {
+          this.previousNumber = parseFloat(this.currentNumber);
+          this.currentNumber = '';
+        } else {
+          this.previousNumber /= parseFloat(this.currentNumber);
+          this.currentNumber = '';
+        }
+        this.display();
         break;
       case '*':
-        console.log('this is the multiplication');
+        if (this.previousNumber === '') {
+          this.previousNumber = parseFloat(this.currentNumber);
+          this.currentNumber = '';
+        } else {
+          this.previousNumber *= parseFloat(this.currentNumber);
+          this.currentNumber = '';
+        }
+        this.display();
         break;
     }
   },
