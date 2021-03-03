@@ -77,7 +77,9 @@ theOps.forEach((val) => {
 });
 
 theAc.forEach((val) => {
-  val.addEventListener('click', () => console.log(val));
+  val.addEventListener('click', () => {
+    calculator.delete();
+  });
 });
 
 theDel.forEach((val) => {
