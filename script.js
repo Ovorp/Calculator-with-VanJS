@@ -9,7 +9,6 @@ const theEqual = document.querySelectorAll('[data-equal]');
 const calculator = {
   currentNumber: '',
   previousNumber: '',
-  ops: '',
 
   numberToDisplay(val) {
     this.currentNumber += val.innerText.toString();
@@ -17,7 +16,8 @@ const calculator = {
     this.display();
   },
   operation(val) {
-    switch (val) {
+    let ops = val.innerText;
+    switch (ops) {
       case '+':
         // console.log(
         //   this.previousNumber,
@@ -38,7 +38,7 @@ const calculator = {
         // // this.display();
         // console.log(this.previousNumber, typeof this.previousNumber, 'prev');
         if (this.previousNumber === '') {
-          this.previousNumber = parseFloat(this.currentNumber) + this.ops;
+          this.previousNumber = parseFloat(this.currentNumber) + ops;
           this.currentNumber = '';
         } else {
           this.previousNumber += parseFloat(this.currentNumber);
@@ -81,7 +81,7 @@ const calculator = {
   display() {
     let bottomOutput = document.querySelector('.bottom-output');
     let topOutput = document.querySelector('.top-output');
-    topOutput.innerHTML = this.previousNumber;
+    topOutput.innerHTML = this.previousNumber .;
     bottomOutput.innerText = this.currentNumber;
   },
 };
