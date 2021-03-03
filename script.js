@@ -9,19 +9,43 @@ const theEqual = document.querySelectorAll('[data-equal]');
 const calculator = {
   currentNumber: '',
   previousNumber: '',
+  ops: '',
 
   numberToDisplay(val) {
     this.currentNumber += val.innerText.toString();
-    this.previousNumber = parseFloat(this.currentNumber);
+    // this.previousNumber = parseFloat(this.currentNumber);
     this.display();
   },
   operation(val) {
-    let ops = val.innerText;
-    switch (ops) {
+    switch (val) {
       case '+':
-        this.previousNumber += parseFloat(this.currentNumber);
-        this.currentNumber = '';
+        // console.log(
+        //   this.previousNumber,
+        //   typeof this.previousNumber,
+        //   'prev',
+        //   this.currentNumber,
+        //   typeof this.currentNumber,
+        //   'current',
+        //   parseFloat(this.currentNumber),
+        //   typeof parseFloat(this.currentNumber),
+        //   'parse'
+        // );
+        // console.log(this.previousNumber, this.currentNumber);
+        // this.previousNumber += parseFloat(this.currentNumber);
+        // console.log(this.previousNumber, typeof this.previousNumber, 'prev');
+        // this.currentNumber = '';
+        // console.log(this.previousNumber, typeof this.previousNumber, 'prev');
+        // // this.display();
+        // console.log(this.previousNumber, typeof this.previousNumber, 'prev');
+        if (this.previousNumber === '') {
+          this.previousNumber = parseFloat(this.currentNumber) + this.ops;
+          this.currentNumber = '';
+        } else {
+          this.previousNumber += parseFloat(this.currentNumber);
+          this.currentNumber = '';
+        }
         this.display();
+        break;
         break;
       case '-':
         this.previousNumber -= parseFloat(this.currentNumber);
