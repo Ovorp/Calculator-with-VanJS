@@ -13,7 +13,7 @@ const calculator = {
   numberToDisplay(val) {
     this.currentNumber += val.innerText.toString();
     // this.previousNumber = parseFloat(this.currentNumber);
-    this.display();
+    this.display()
   },
   operation(val) {
     let ops = val.innerText;
