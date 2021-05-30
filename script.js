@@ -37,8 +37,6 @@ const calculator = {
           this.total =
             parseFloat(this.previousNumber) * parseFloat(this.currentNumber);
           break;
-        case '=':
-          ops = '';
       }
       this.currentOps = ops;
       this.previousNumber = this.total;
@@ -76,9 +74,14 @@ const calculator = {
       'total'
     );
   },
-  equal() {
-    this.operation();
+  equal(val) {
+    this.operation(val);
     this.display(this.total);
+
+    this.currentNumber = '';
+    this.previousNumber = '';
+    this.total = '';
+    this.currentOps = '';
   },
   ac() {
     (this.currentNumber = ''),
@@ -117,6 +120,6 @@ theDel.forEach((val) => {
 
 theEqual.forEach((val) => {
   val.addEventListener('click', () => {
-    calculator.operation(val);
+    calculator.equal(val);
   });
 });
