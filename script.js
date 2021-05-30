@@ -9,80 +9,83 @@ const theEqual = document.querySelectorAll('[data-equal]');
 const calculator = {
   currentNumber: '',
   previousNumber: '',
+  total: '',
+  currentOps: '',
 
   numberToDisplay(val) {
     this.currentNumber += val.innerText.toString();
-    // this.previousNumber = parseFloat(this.currentNumber);
     this.display();
   },
   operation(val) {
     let ops = val.innerText;
-    switch (ops) {
-      case '+':
-        // console.log(
-        //   this.previousNumber,
-        //   typeof this.previousNumber,
-        //   'prev',
-        //   this.currentNumber,
-        //   typeof this.currentNumber,
-        //   'current',
-        //   parseFloat(this.currentNumber),
-        //   typeof parseFloat(this.currentNumber),
-        //   'parse'
-        // );
-        // console.log(this.previousNumber, this.currentNumber);
-        // this.previousNumber += parseFloat(this.currentNumber);
-        // console.log(this.previousNumber, typeof this.previousNumber, 'prev');
-        // this.currentNumber = '';
-        // console.log(this.previousNumber, typeof this.previousNumber, 'prev');
-        // // this.display();
-        // console.log(this.previousNumber, typeof this.previousNumber, 'prev');
-        if (this.previousNumber === '') {
-          this.previousNumber = parseFloat(this.currentNumber) + ops;
-          this.currentNumber = '';
-        } else {
-          this.previousNumber += parseFloat(this.currentNumber);
-          this.currentNumber = '';
-        }
-        this.display();
-        break;
-        break;
-      case '-':
-        this.previousNumber -= parseFloat(this.currentNumber);
-        this.currentNumber = '';
-        this.display();
-        break;
-      case '/':
-        if (this.previousNumber === '') {
-          this.previousNumber = parseFloat(this.currentNumber);
-          this.currentNumber = '';
-        } else {
-          this.previousNumber /= parseFloat(this.currentNumber);
-          this.currentNumber = '';
-        }
-        this.display();
-        break;
-      case '*':
-        if (this.previousNumber === '') {
-          this.previousNumber = parseFloat(this.currentNumber);
-          this.currentNumber = '';
-        } else {
-          this.previousNumber *= parseFloat(this.currentNumber);
-          this.currentNumber = '';
-        }
-        this.display();
-        break;
+    let currentOps = this.currentOps;
+    if (currentOps) {
+      switch (currentOps) {
+        case '+':
+          this.total =
+            parseFloat(this.previousNumber) + parseFloat(this.currentNumber);
+          break;
+        case '-':
+          this.total =
+            parseFloat(this.previousNumber) - parseFloat(this.currentNumber);
+          break;
+        case '/':
+          this.total =
+            parseFloat(this.previousNumber) / parseFloat(this.currentNumber);
+          break;
+        case '*':
+          this.total =
+            parseFloat(this.previousNumber) * parseFloat(this.currentNumber);
+          break;
+        case '=':
+          ops = '';
+      }
+      this.currentOps = ops;
+      this.previousNumber = this.total;
+      this.currentNumber = '';
+
+      this.display(this.total);
+    } else {
+      this.currentOps = ops;
+      this.previousNumber = parseFloat(this.currentNumber) + ops;
+      this.currentNumber = '';
+      this.display();
     }
   },
   delete() {
     this.currentNumber = ' ';
-    this.previousNumber = ' ';
   },
-  display() {
+  display(total) {
     let bottomOutput = document.querySelector('.bottom-output');
     let topOutput = document.querySelector('.top-output');
-    topOutput.innerHTML = this.previousNumber;
+
+    total
+      ? (topOutput.innerHTML = total)
+      : (topOutput.innerHTML = this.previousNumber);
+
     bottomOutput.innerText = this.currentNumber;
+
+    console.log(
+      this.currentNumber,
+      'currentnum',
+      this.previousNumber,
+      'previousnum',
+      this.currentOps,
+      'ops',
+      this.total,
+      'total'
+    );
+  },
+  equal() {
+    this.operation();
+    this.display(this.total);
+  },
+  ac() {
+    (this.currentNumber = ''),
+      (this.previousNumber = ''),
+      (this.total = ''),
+      (this.currentOps = ''),
+      this.display();
   },
 };
 
@@ -102,14 +105,18 @@ theOps.forEach((val) => {
 
 theAc.forEach((val) => {
   val.addEventListener('click', () => {
-    calculator.delete();
+    calculator.ac();
   });
 });
 
 theDel.forEach((val) => {
-  val.addEventListener('click', () => console.log(val));
+  val.addEventListener('click', () => {
+    calculator.delete();
+  });
 });
 
 theEqual.forEach((val) => {
-  val.addEventListener('click', () => console.log(val));
+  val.addEventListener('click', () => {
+    calculator.operation(val);
+  });
 });
