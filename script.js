@@ -121,5 +121,6 @@ theDel.forEach((val) => {
 theEqual.forEach((val) => {
   val.addEventListener('click', () => {
     calculator.equal(val);
+    // this doesn't quite work there is an issue when you click '=' and then press operator
   });
 });
